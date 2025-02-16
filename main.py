@@ -55,24 +55,47 @@ st.markdown("""
         max-width: 1200px;
         margin: 0 auto;
     }
-    .analysis-box-think {
+    /* Light mode styles */
+    [data-theme="light"] .analysis-box-think {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f0f2f6;
+        margin: 10px 0;
+        border: 1px solid rgba(49, 51, 63, 0.2);
+    }
+    [data-theme="light"] .analysis-box-result {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f0f2f6;
+        margin: 10px 0;
+        border: 1px solid rgba(49, 51, 63, 0.2);
+    }
+    [data-theme="light"] .match-score {
+        color: #0066cc;
+    }
+    
+    /* Dark mode styles */
+    [data-theme="dark"] .analysis-box-think {
         padding: 20px;
         border-radius: 10px;
         background-color: rgba(49, 51, 63, 0.8);
         margin: 10px 0;
         border: 1px solid rgba(250, 250, 250, 0.2);
     }
-    .analysis-box-result {
+    [data-theme="dark"] .analysis-box-result {
         padding: 20px;
         border-radius: 10px;
         background-color: rgba(49, 51, 63, 0.8);
         margin: 10px 0;
         border: 1px solid rgba(250, 250, 250, 0.2);
     }
+    [data-theme="dark"] .match-score {
+        color: #00cf86;
+    }
+    
     .match-score {
         font-size: 24px;
         font-weight: bold;
-        color: #00cf86;
     }
     </style>
     """, unsafe_allow_html=True)
