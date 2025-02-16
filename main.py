@@ -144,7 +144,7 @@ def analyze_resume(client, resume_text, job_description):
                 {"role": "system", "content": "You are an expert resume analyzer and career coach."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7,
+            temperature=0.2,
             max_tokens=2000
         )
         return response.choices[0].message.content
