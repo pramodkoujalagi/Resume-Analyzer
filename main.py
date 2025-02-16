@@ -58,19 +58,21 @@ st.markdown("""
     .analysis-box-think {
         padding: 20px;
         border-radius: 10px;
-        background-color: #f0f2f6;
+        background-color: rgba(49, 51, 63, 0.8);
         margin: 10px 0;
+        border: 1px solid rgba(250, 250, 250, 0.2);
     }
     .analysis-box-result {
         padding: 20px;
         border-radius: 10px;
-        background-color: #f0f2f6;
+        background-color: rgba(49, 51, 63, 0.8);
         margin: 10px 0;
+        border: 1px solid rgba(250, 250, 250, 0.2);
     }
     .match-score {
         font-size: 24px;
         font-weight: bold;
-        color: #0066cc;
+        color: #00cf86;
     }
     </style>
     """, unsafe_allow_html=True)
