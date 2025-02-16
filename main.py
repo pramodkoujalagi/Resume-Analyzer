@@ -162,15 +162,17 @@ def main():
     # File upload for resume
     uploaded_file = st.file_uploader("Upload your resume (PDF)", type=['pdf'])
     
-    # Job description input
-    job_description = st.text_area(
-        "Paste the job description here",
-        height=200,
-        help="Paste the complete job description including requirements and qualifications"
-    )
+    # Create a form for the job description
+    with st.form(key='job_description_form'):
+        job_description = st.text_area(
+            "Paste the job description here",
+            height=200,
+            help="Paste the complete job description including requirements and qualifications"
+        )
+        submit_button = st.form_submit_button("Analyze Resume", use_container_width=True)
 
     # Create columns for resume text and analysis
-    if uploaded_file and job_description:
+    if uploaded_file and job_description and (submit_button or st.session_state.get('analyze_triggered', False)):
         col1, col2 = st.columns([1, 1])
         
         with col1:
@@ -182,43 +184,40 @@ def main():
             
         with col2:
             st.subheader("Analysis")
-            if st.button("Analyze Resume"):
-                with st.spinner("Analyzing your resume..."):
-                    # Add a small delay to show the spinner
-                    time.sleep(1)
-                    analysis = analyze_resume(client, resume_text, job_description)
-                    # logging.info(f"Analysis results: {analysis}")
-                    logging.error(f"Think: {analysis.split('</think>')[0]}")
-                    logging.error(f"Result {analysis.split('</think>')[1]}")
+            with st.spinner("Analyzing your resume..."):
+                # Add a small delay to show the spinner
+                time.sleep(1)
+                analysis = analyze_resume(client, resume_text, job_description)
+                # logging.info(f"Analysis results: {analysis}")
+                logging.error(f"Think: {analysis.split('</think>')[0]}")
+                logging.error(f"Result {analysis.split('</think>')[1]}")
 
-                    table_name = 'resume-analyzer'
-                    item = {
-                        'id': str(uuid.uuid4()),
-                        'resume_parse': resume_text,
-                        'think': analysis.split('</think>')[0],
-                        'response': analysis.split('</think>')[1]
-                    }
+                table_name = 'resume-analyzer'
+                item = {
+                    'id': str(uuid.uuid4()),
+                    'resume_parse': resume_text,
+                    'think': analysis.split('</think>')[0],
+                    'response': analysis.split('</think>')[1]
+                }
 
-                    try:
-                        upload_item_to_dynamodb(table_name, item)
-                    except:
-                        pass
+                try:
+                    upload_item_to_dynamodb(table_name, item)
+                except:
+                    pass
 
-                    if analysis:
-                        st.markdown(f"""<div class="analysis-box-think"><h2>Thinking</h2>{analysis.split('</think>')[0]}</div> 
-                        <div class="analysis-box-result"><h2>Response</h2>{analysis.split('</think>')[1]}</div>""", 
-                                  unsafe_allow_html=True)
-                        
-                        # Add download button for analysis
-                        analysis_bytes = analysis.encode()
-                        st.download_button(
-                            label="Download Analysis",
-                            data=analysis_bytes,
-                            file_name="resume_analysis.txt",
-                            mime="text/plain"
-                        )
-
-                        
+                if analysis:
+                    st.markdown(f"""<div class="analysis-box-think"><h2>Thinking</h2>{analysis.split('</think>')[0]}</div> 
+                    <div class="analysis-box-result"><h2>Response</h2>{analysis.split('</think>')[1]}</div>""", 
+                              unsafe_allow_html=True)
+                    
+                    # Add download button for analysis
+                    analysis_bytes = analysis.encode()
+                    st.download_button(
+                        label="Download Analysis",
+                        data=analysis_bytes,
+                        file_name="resume_analysis.txt",
+                        mime="text/plain"
+                    )
 
     # Add helpful information
     with st.expander("💡 Tips for better results"):
