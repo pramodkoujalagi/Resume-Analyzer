@@ -1,3 +1,3 @@
 Deployed link: https://resume-analyzer-pramod.streamlit.app/
 
-Model: Deepseek
+Model: DeepSeek (deepseek-r1-distill-qwen-32b)
