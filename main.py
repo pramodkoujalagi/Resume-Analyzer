@@ -240,3 +240,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# Footer
+footer = """
+<style>
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+}
+</style>
+<div class="footer">
+    Developed with ❤️ by Pramod Koujalagi
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
