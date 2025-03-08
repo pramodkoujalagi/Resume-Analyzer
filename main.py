@@ -251,9 +251,17 @@ footer = """
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #f1f1f1;
+    background-color: var(--background-color, #f1f1f1);
+    color: var(--text-color, #000);
     text-align: center;
     padding: 10px 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .footer {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
 }
 </style>
 <div class="footer">
@@ -261,3 +269,4 @@ footer = """
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
+
